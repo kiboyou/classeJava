@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="form-screen" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" th:href="@{/admin/img/logo.png}">
+  <title>Connexion</title>
+
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div id="app">
+  <section id="color-bg" class="section main-section">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title1">Connexion</p>
+      </header>
+
+      <div class="card-content">
+        <!-- Notification pour message de déconnexion réussie -->
+        <div th:if="${message}" class="notification is-success">
+          <p th:text="${message}"></p>
+        </div>
+
+<!--        &lt;!&ndash; Formulaire de connexion &ndash;&gt;-->
+<!--        <form method="post" th:action="@{/login}">-->
+<!--          <div class="field spaced">-->
+<!--            <label class="label">Email</label>-->
+<!--            <div class="control icons-left">-->
+<!--              <input class="input" type="text" name="username" placeholder="user@example.com" id="username" required>-->
+<!--              <span class="icon is-small left"><i class="mdi mdi-account"></i></span>-->
+<!--            </div>-->
+<!--            <p class="help">Entrez votre nom d'utilisateur</p>-->
+<!--          </div>-->
+
+<!--          <div class="field spaced">-->
+<!--            <label class="label">Mot de passe</label>-->
+<!--            <div class="control icons-left">-->
+<!--              <input class="input" type="password" name="password" placeholder="Mot de passe" id="password" required>-->
+<!--              <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>-->
+<!--            </div>-->
+<!--            <p class="help">Entrez votre mot de passe</p>-->
+<!--          </div>-->
+
+<!--          <hr>-->
+
+<!--          <div class="field grouped">-->
+<!--            <div class="control">-->
+<!--              <button type="submit" class="button-ajout">Se connecter</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+
+<!--        &lt;!&ndash; Lien vers la page de création de compte &ndash;&gt;-->
+<!--        <div class="field">-->
+<!--          <p class="help has-text-centered">-->
+<!--            Pas encore de compte ? <a href="/inscription" class="has-text-link">Créer un compte</a>-->
+<!--          </p>-->
+<!--        </div>-->
+
+        <div class="field">
+          <p class="help has-text-centered mt-5">
+            Ou inscrivez-vous avec Google :
+          </p>
+          <!-- Lien de connexion Google -->
+          <a href="/oauth2/authorization/google" class="button is-fullwidth">
+            <span class="icon is-small">
+              <i class="mdi mdi-google"></i>
+            </span>
+            <span>Se connecter avec Google</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" th:src="@{/admin/js/main.min.js}"></script>
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;
+    n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)
+  }(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '658339141622648');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1"/>
+</noscript>
+
+<!-- Material Design Icons -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+</body>
+</html>
