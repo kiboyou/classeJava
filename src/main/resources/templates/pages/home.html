@@ -1,19 +1,102 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Home</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stegano PWA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <header>
-        <h1>Bienvenue, <span th:text="${username}">Utilisateur</span>!</h1>
-    </header>
-    <main>
-        <p>Vous êtes connecté avec succès.</p>
-        <!-- Bouton de déconnexion -->
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">Se déconnecter</button>
-        </form>
-    </main>
+
+    <nav class="navbar">
+        <div class="cardre-btn">
+            <button id="logoutButton" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Steganography Tool</h1>
+        <div class="form">
+            <h2>Hide a Message</h2>
+            <form id="hideForm" enctype="multipart/form-data">
+                <input type="file" name="image" required>
+                <textarea name="message" placeholder="Enter your message" required></textarea>
+                <button type="submit">Hide Message</button>
+            </form>
+        </div>
+        <div class="form">
+            <h2>Extract a Message</h2>
+            <form id="extractForm">
+                <input type="file" id="extractImage" name="image" required>
+                <button type="button" id="extractButton">Extract Message</button>
+            </form>
+        </div>
+        <div id="extractedMessageContainer" style="display: none; margin-top: 20px;">
+            <h3>Le message est :</h3>
+            <p id="extractedMessage"></p>
+        </div>
+    </div>
+
+    <!-- Pop-up -->
+    <div id="overlay"></div>
+    <div id="popup">
+        <p>Le message a été caché dans l'image et téléchargée avec succès.</p>
+        <button id="closePopup">OK</button>
+    </div>
+
+    <script>
+        document.getElementById('hideForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('/steganography/hide', { method: 'POST', body: formData })
+                .then(response => {
+                    if (response.ok) return response.blob();
+                    else throw new Error('Erreur lors du traitement de l’image.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'modified_image.png';
+                    a.click();
+
+                    document.getElementById('overlay').style.display = 'block';
+                    document.getElementById('popup').style.display = 'block';
+
+                    // Nettoyer le formulaire
+                    form.reset();
+                })
+                .catch(error => console.error('Erreur:', error));
+        });
+
+        document.getElementById('closePopup').addEventListener('click', function () {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        document.getElementById('extractButton').addEventListener('click', function () {
+            const form = document.getElementById('extractForm');
+            const formData = new FormData(form);
+
+            fetch('/steganography/extract', { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    const messageContainer = document.getElementById('extractedMessageContainer');
+                    const messageElement = document.getElementById('extractedMessage');
+
+                    messageElement.textContent = data.message || 'No message found.';
+                    messageContainer.style.display = 'block';
+
+                    // Nettoyer le formulaire
+                    form.reset();
+                })
+                .catch(error => console.error('Erreur lors de l’extraction du message:', error));
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            window.location.href = '/logout';
+        });
+    </script>
 </body>
 </html>

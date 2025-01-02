@@ -1,0 +1,107 @@
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #e0f7fa;
+    color: #004d40;
+}
+
+/* Barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: flex-start; /* Aligne les éléments à gauche */
+    align-items: center; /* Centre verticalement les éléments */
+    padding: 10px 20px;
+    background-color: #00796b; /* Optionnel : couleur de fond */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optionnel : ombrage */
+}
+
+.cardre-btn {
+    margin-right: 0; /* S'assure que le bouton est bien collé à gauche */
+    width: 100%;
+}
+
+.logout-btn {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 0; /* S'assure que le bouton est bien collé à gauche */
+    width: 20%;
+}
+
+.logout-btn:hover {
+    background-color: #b71c1c;
+}
+
+/* Conteneur principal */
+.container {
+    text-align: center;
+    padding: 20px;
+    margin: 70px auto;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #00796b;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input, textarea, button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+}
+
+button {
+    background-color: #00796b;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+/* Pop-up */
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+}
+
+#popup button {
+    margin-top: 10px;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

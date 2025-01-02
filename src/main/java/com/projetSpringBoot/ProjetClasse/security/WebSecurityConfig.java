@@ -27,8 +27,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf(csrf -> csrf.disable()) // Désactiver CSRF pour une API REST
                 .authorizeRequests(auth -> auth
-                        .requestMatchers( "/css/**").permitAll() // Autoriser l'accès à ces pages
+                        .requestMatchers( "/css/**", "/uploads/**", "/output/**").permitAll() // Autoriser l'accès à ces pages
+                        .requestMatchers("/steganography/**").permitAll() // Autoriser ces endpoints
                         .requestMatchers("/inscription", "/login**", "/oauth2/authorization/google").permitAll() // Permettre l'accès aux pages de login et OAuth2
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Accès restreint pour le rôle ADMIN
                         .anyRequest().authenticated() // Autres demandes doivent être authentifiées
